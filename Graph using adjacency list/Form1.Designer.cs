@@ -38,7 +38,6 @@
             txtTo = new TextBox();
             btnAddEdge = new Button();
             btnRemoveEdge = new Button();
-            btnShowAdjacencyList = new Button();
             txtGraphRepresentation = new TextBox();
             label5 = new Label();
             txtWeight = new TextBox();
@@ -48,17 +47,19 @@
             btnRemoveNode = new Button();
             btnShowBFS = new Button();
             label6 = new Label();
+            btnShowDFSRecursive = new Button();
+            btnRemoveAll = new Button();
             SuspendLayout();
             // 
             // label1
             // 
             label1.AutoSize = true;
             label1.Font = new Font("Yu Gothic UI", 14F, FontStyle.Bold);
-            label1.Location = new Point(196, 21);
+            label1.Location = new Point(233, 21);
             label1.Name = "label1";
-            label1.Size = new Size(406, 25);
+            label1.Size = new Size(324, 25);
             label1.TabIndex = 0;
-            label1.Text = "Bankai Sakashima Yokoshima Happo Fusagari ";
+            label1.Text = "GRAFO CON LISTA DE ADYACENCIA";
             // 
             // btnAddNode
             // 
@@ -137,16 +138,6 @@
             btnRemoveEdge.Text = "Remove Edge";
             btnRemoveEdge.UseVisualStyleBackColor = true;
             btnRemoveEdge.Click += btnRemoveEdge_Click;
-            // 
-            // btnShowAdjacencyList
-            // 
-            btnShowAdjacencyList.Location = new Point(261, 245);
-            btnShowAdjacencyList.Name = "btnShowAdjacencyList";
-            btnShowAdjacencyList.Size = new Size(75, 54);
-            btnShowAdjacencyList.TabIndex = 11;
-            btnShowAdjacencyList.Text = "Show Adjacency List";
-            btnShowAdjacencyList.UseVisualStyleBackColor = true;
-            btnShowAdjacencyList.Click += btnShowAdjacencyList_Click;
             // 
             // txtGraphRepresentation
             // 
@@ -229,11 +220,33 @@
             label6.TabIndex = 22;
             label6.Text = "Node Start:";
             // 
+            // btnShowDFSRecursive
+            // 
+            btnShowDFSRecursive.Location = new Point(200, 363);
+            btnShowDFSRecursive.Name = "btnShowDFSRecursive";
+            btnShowDFSRecursive.Size = new Size(75, 39);
+            btnShowDFSRecursive.TabIndex = 23;
+            btnShowDFSRecursive.Text = "Show DFS Recursive Algorithm";
+            btnShowDFSRecursive.UseVisualStyleBackColor = true;
+            btnShowDFSRecursive.Click += btnShowDFSRecursive_Click;
+            // 
+            // btnRemoveAll
+            // 
+            btnRemoveAll.Location = new Point(389, 171);
+            btnRemoveAll.Name = "btnRemoveAll";
+            btnRemoveAll.Size = new Size(84, 23);
+            btnRemoveAll.TabIndex = 24;
+            btnRemoveAll.Text = "Remove All";
+            btnRemoveAll.UseVisualStyleBackColor = true;
+            btnRemoveAll.Click += btnRemoveAll_Click;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(btnRemoveAll);
+            Controls.Add(btnShowDFSRecursive);
             Controls.Add(label6);
             Controls.Add(btnShowBFS);
             Controls.Add(btnRemoveNode);
@@ -243,7 +256,6 @@
             Controls.Add(label5);
             Controls.Add(txtWeight);
             Controls.Add(txtGraphRepresentation);
-            Controls.Add(btnShowAdjacencyList);
             Controls.Add(btnRemoveEdge);
             Controls.Add(btnAddEdge);
             Controls.Add(label4);
@@ -272,7 +284,6 @@
         private TextBox txtTo;
         private Button btnAddEdge;
         private Button btnRemoveEdge;
-        private Button btnShowAdjacencyList;
         private TextBox txtGraphRepresentation;
         private Label label5;
         private TextBox txtWeight;
@@ -282,5 +293,7 @@
         private Button btnRemoveNode;
         private Button btnShowBFS;
         private Label label6;
+        private Button btnShowDFSRecursive;
+        private Button btnRemoveAll;
     }
 }

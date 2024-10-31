@@ -27,10 +27,16 @@ namespace Graph_using_adjacency_list
         {
             if (Nodes.Contains(fromNode) && Nodes.Contains(toNode))
             {
-                Edge newEdge = new Edge(fromNode, toNode);
-                fromNode.Edges.Add(newEdge);
+                Edge newEdge = new Edge(/*fromNode,*/ toNode);
+                fromNode.Neighbors.Add(newEdge);
                 AdjacencyList[Nodes.IndexOf(fromNode)].Add(newEdge);
             }
+        }
+
+        public void Clear()
+        {
+            Nodes.Clear();
+            AdjacencyList.Clear();
         }
 
         //add a method to add an edge with a weight
@@ -38,8 +44,8 @@ namespace Graph_using_adjacency_list
         {
             if (Nodes.Contains(fromNode) && Nodes.Contains(toNode))
             {
-                Edge newEdge = new Edge(fromNode, toNode, weight);
-                fromNode.Edges.Add(newEdge);
+                Edge newEdge = new Edge(/*fromNode,*/ toNode, weight);
+                fromNode.Neighbors.Add(newEdge);
                 AdjacencyList[Nodes.IndexOf(fromNode)].Add(newEdge);
             }
         }
@@ -69,7 +75,7 @@ namespace Graph_using_adjacency_list
                 // Remove edges to this node
                 foreach (Node node in Nodes)
                 {
-                    node.Edges.RemoveAll(edge => edge.To == nodeToRemove);
+                    node.Neighbors.RemoveAll(edge => edge.To == nodeToRemove);
                 }
 
                 // Remove edges in the adjacency list
@@ -92,15 +98,20 @@ namespace Graph_using_adjacency_list
         {
             if (Nodes.Contains(fromNode) && Nodes.Contains(toNode))
             {
-                Edge edgeToRemove = fromNode.Edges.Find(e => e.To == toNode);
+                Edge edgeToRemove = fromNode.Neighbors.Find(e => e.To == toNode);
                 if (edgeToRemove != null)
                 {
-                    fromNode.Edges.Remove(edgeToRemove);
+                    fromNode.Neighbors.Remove(edgeToRemove);
                     AdjacencyList[Nodes.IndexOf(fromNode)].Remove(edgeToRemove);
                 }
             }
         }
 
+        public void RemoveGraph()
+        {
+            Nodes.Clear();
+            AdjacencyList.Clear();
+        }
 
         public string ShowAdjacencyList()
         {
@@ -137,6 +148,8 @@ namespace Graph_using_adjacency_list
             return sb.ToString();
         }
 
+
+
         public string DFS(Node startNode)
         {
             if (startNode == null || !Nodes.Contains(startNode)) return string.Empty;
@@ -162,7 +175,7 @@ namespace Graph_using_adjacency_list
             result.Append(currentNode.Name);
 
             // Recorrer los nodos adyacentes
-            foreach (Edge edge in currentNode.Edges)
+            foreach (Edge edge in currentNode.Neighbors)
             {
                 Node adjacentNode = edge.To;
                 if (!visited.Contains(adjacentNode))
@@ -197,11 +210,13 @@ namespace Graph_using_adjacency_list
 
                     visited.Add(currentNode);  // Marcar el nodo como visitado
 
+                    List<Edge> reversedEdges = currentNode.Neighbors.OrderByDescending(e => e.To.Name).ToList();
+
                     // Apilar los nodos adyacentes no visitados
-                    foreach (Edge edge in currentNode.Edges)
+                    foreach (Edge edge in reversedEdges)
                     {
                         Node adjacentNode = edge.To;
-                        if (!visited.Contains(adjacentNode) /*&& !stack.Contains(adjacentNode)*/)
+                        if (!visited.Contains(adjacentNode))
                         {
                             stack.Push(adjacentNode);  // Agregar a la pila si no ha sido visitado
                         }
@@ -212,7 +227,7 @@ namespace Graph_using_adjacency_list
             return result.ToString();
         }
 
-        public string BFSIterative(Node startNode)
+        public string BFS(Node startNode)
         {
             if (startNode == null || !Nodes.Contains(startNode)) return string.Empty;
 
@@ -238,7 +253,7 @@ namespace Graph_using_adjacency_list
                     visited.Add(currentNode);  // Marcar el nodo como visitado
 
                     // Encolar los nodos adyacentes no visitados
-                    foreach (Edge edge in currentNode.Edges)
+                    foreach (Edge edge in currentNode.Neighbors)
                     {
                         Node adjacentNode = edge.To;
                         if (!visited.Contains(adjacentNode) && !queue.Contains(adjacentNode))
@@ -253,50 +268,6 @@ namespace Graph_using_adjacency_list
         }
 
 
-        //add a two methods to implement bfs recursive to then show the result
-        public string BFS(Node startNode)
-        {
-            if (startNode == null || !Nodes.Contains(startNode)) return string.Empty;
-
-            List<Node> visited = new List<Node>();  // Lista de nodos visitados
-            StringBuilder result = new StringBuilder();  // Para acumular el resultado
-
-            BFSRecursive(startNode, visited, result);
-
-            return result.ToString();
-        }
-
-        private void BFSRecursive(Node currentNode, List<Node> visited, StringBuilder result)
-        {
-            Queue<Node> queue = new Queue<Node>();  // Cola para el recorrido
-
-            if (!visited.Contains(currentNode))
-            {
-                // Agregar el nodo actual al resultado
-                if (result.Length > 0)
-                {
-                    result.Append(" → ");  // Añadir flecha entre nodos
-                }
-                result.Append(currentNode.Name);
-
-                visited.Add(currentNode);  // Marcar el nodo como visitado
-
-                // Encolar los nodos adyacentes no visitados
-                foreach (Edge edge in currentNode.Edges)
-                {
-                    Node adjacentNode = edge.To;
-                    if (!visited.Contains(adjacentNode) && !queue.Contains(adjacentNode))
-                    {
-                        queue.Enqueue(adjacentNode);  // Agregar a la cola si no ha sido visitado
-                    }
-                }
-
-                if (queue.Count > 0)
-                {
-                    BFSRecursive(queue.Dequeue(), visited, result);
-                }
-            }
-        }
-
+       
     }
 }

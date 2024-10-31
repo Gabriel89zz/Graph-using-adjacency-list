@@ -9,12 +9,12 @@ namespace Graph_using_adjacency_list
     internal class Node
     {
         public string Name { get; set; }
-        public List<Edge> Edges { get; set; }
+        public List<Edge> Neighbors { get; set; }
 
         public Node(string name)
         {
             Name = name;
-            Edges = new List<Edge>();
+            Neighbors = new List<Edge>();
         }
     }
 }

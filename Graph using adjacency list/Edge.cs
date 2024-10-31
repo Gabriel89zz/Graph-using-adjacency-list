@@ -8,20 +8,20 @@ namespace Graph_using_adjacency_list
 {
     internal class Edge
     {
-        public Node From { get; set; }
+        //public Node From { get; set; }
         public Node To { get; set; }
         public int Weight { get; set; }
 
-        public Edge(Node from, Node to, int weight)
+        public Edge(/*Node from,*/ Node to, int weight)
         {
-            From = from;
+            //From = from;
             To = to;
             Weight = weight;
         }
         
-        public Edge(Node from, Node to)
+        public Edge(/*Node from,*/ Node to)
         {
-            From = from;
+            //From = from;
             To = to;
         }
 
